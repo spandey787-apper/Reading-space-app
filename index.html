@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reading Space Booking</title>
+</head>
+<body>
+    <h1>Book a Seat</h1>
+    <form method="POST" action="/book">
+        <label>Your Name:</label>
+        <input type="text" name="name" required><br><br>
+
+        <label>Select Seat:</label>
+        <select name="seat" required>
+            {% for seat in seats %}
+                {% if seat.active %}
+                    <option value="{{ seat.id }}">{{ seat.room }} - {{ seat.number }} ({{ seat.type }})</option>
+                {% endif %}
+            {% endfor %}
+        </select><br><br>
+
+        <label>Select Slot:</label>
+        <select name="slot" required>
+            {% for slot in slots %}
+                <option value="{{ slot.id }}">
+                    {{ slot.date }} | {{ slot.start }} - {{ slot.end }} ({{ slot.available }} available)
+                </option>
+            {% endfor %}
+        </select><br><br>
+
+        <label>Payment Method:</label>
+        <select name="payment" required>
+            <option value="UPI">UPI</option>
+            <option value="Card">Card</option>
+            <option value="Cash">Cash</option>
+        </select><br><br>
+
+        <button type="submit">Book</button>
+    </form>
+</body>
+</html>
